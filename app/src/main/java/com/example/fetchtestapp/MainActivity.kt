@@ -1,9 +1,11 @@
 package com.example.fetchtestapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
@@ -13,21 +15,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val container = findViewById<LinearLayout>(R.id.container)
+        val recycleView = container.findViewById<RecyclerView>(R.id.recycler)
         lifecycleScope.launch {
-            var filteredListItems : List<ListItem> = emptyList()
             try {
                 val apiResult = FetchAPI.retrofitService.getData()
-                filteredListItems = apiResult.filterNot {
-                    (it.name == null) or (it.name == "")
+                if (!apiResult.isNullOrEmpty()) {
+                    // Filtering names that are null or ""
+                    // And getting the items we want in the proper format
+                    val listIdMap = getListIdMap(apiResult.filterNot {
+                        (it.name == null) or (it.name == "")
+                    })
+                    recycleView.adapter = ItemAdapter(getRecyclerDataset(listIdMap))
+                } else {
+                    val textView = container.findViewById<TextView>(R.id.fail_message)
+                    textView.visibility = View.VISIBLE
                 }
             } catch (e : Exception) {
                 Log.d("error", "${e.message}")
+                val textView = container.findViewById<TextView>(R.id.fail_message)
+                textView.visibility = View.VISIBLE
             }
-            val listIdMap = getListIdMap(filteredListItems)
-
-            val container = findViewById<LinearLayout>(R.id.container)
-            val recycleView = container.findViewById<RecyclerView>(R.id.recycler)
-            recycleView.adapter = ItemAdapter(getRecyclerDataset(listIdMap))
         }
     }
 }
