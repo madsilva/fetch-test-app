@@ -23,21 +23,25 @@ class MainActivity : AppCompatActivity() {
             } catch (e : Exception) {
                 Log.d("error", "${e.message}")
             }
-            val listIdMap = HashMap<Int, MutableList<ListItem>> ()
-            for (item in filteredListItems) {
-                if (listIdMap.containsKey(item.listId)) {
-                    listIdMap[item.listId]?.add(item)
-                } else {
-                    listIdMap.put(item.listId, mutableListOf<ListItem>(item))
-                }
-            }
+            val listIdMap = getListIdMap(filteredListItems)
 
-            Log.d("maddie", "success: ${listIdMap}")
             val container = findViewById<LinearLayout>(R.id.container)
             val recycleView = container.findViewById<RecyclerView>(R.id.recycler)
             recycleView.adapter = ItemAdapter(getRecyclerDataset(listIdMap))
         }
     }
+}
+
+fun getListIdMap(initialList : List<ListItem>) : HashMap<Int, MutableList<ListItem>> {
+    val listIdMap = HashMap<Int, MutableList<ListItem>> ()
+    for (item in initialList) {
+        if (listIdMap.containsKey(item.listId)) {
+            listIdMap[item.listId]?.add(item)
+        } else {
+            listIdMap.put(item.listId, mutableListOf<ListItem>(item))
+        }
+    }
+    return listIdMap
 }
 
 fun getRecyclerDataset(initialMap : HashMap<Int, MutableList<ListItem>>) : MutableList<Any> {

@@ -1,6 +1,5 @@
 package com.example.fetchtestapp
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ItemAdapter(private val dataset: MutableList<Any>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView = view.findViewById(R.id.item_title)
+        val textView: TextView = view.findViewById(R.id.list_item)
     }
 
     class ListIDViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
@@ -17,8 +16,6 @@ class ItemAdapter(private val dataset: MutableList<Any>) : RecyclerView.Adapter<
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
-
         when {
             viewType == 0 -> {
                 val adapterLayout = LayoutInflater.from(parent.context)
@@ -31,8 +28,6 @@ class ItemAdapter(private val dataset: MutableList<Any>) : RecyclerView.Adapter<
                 return ItemViewHolder(adapterLayout)
             }
         }
-
-
     }
 
     override fun getItemCount() = dataset.size
@@ -48,8 +43,6 @@ class ItemAdapter(private val dataset: MutableList<Any>) : RecyclerView.Adapter<
                 myItemViewHolder.textView.text = dataset[position].toString()
             }
         }
-
-
     }
 
     override fun getItemViewType(position: Int): Int {
