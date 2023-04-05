@@ -31,20 +31,24 @@ class MainActivity : AppCompatActivity() {
                     listIdMap.put(item.listId, mutableListOf<ListItem>(item))
                 }
             }
-            // Creating the dataset for the RecyclerView
-            val dataset = mutableListOf<Any>()
-            for ((k,v) in listIdMap) {
-                // ListIDs are headers for each list
-                dataset.add(ListID(k))
-                if (v != null) {
-                    v.sort()
-                    dataset.addAll(v)
-                }
-            }
+
             Log.d("maddie", "success: ${listIdMap}")
             val container = findViewById<LinearLayout>(R.id.container)
             val recycleView = container.findViewById<RecyclerView>(R.id.recycler)
-            recycleView.adapter = ItemAdapter(dataset)
+            recycleView.adapter = ItemAdapter(getRecyclerDataset(listIdMap))
         }
     }
+}
+
+fun getRecyclerDataset(initialMap : HashMap<Int, MutableList<ListItem>>) : MutableList<Any> {
+    val dataset = mutableListOf<Any>()
+    for ((k,v) in initialMap) {
+        // ListIDs are headers for each list
+        dataset.add(ListID(k))
+        if (v != null) {
+            v.sort()
+            dataset.addAll(v)
+        }
+    }
+    return dataset
 }
