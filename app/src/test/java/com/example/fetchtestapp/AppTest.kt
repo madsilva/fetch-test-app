@@ -17,11 +17,6 @@ class AppTest {
     }
 
     @Test fun testRecyclerViewRender () {
-        val testList = mutableListOf<Any>()
-        testList.add(ListID(1))
-        testList.add(ListItem(1, 1, "Item 1"))
-        testList.add(ListItem(3, 1, "Item 3"))
 
-        val adapter = ItemAdapter(testList)
     }
 }

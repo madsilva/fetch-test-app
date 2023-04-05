@@ -22,6 +22,7 @@ class ItemAdapter(private val dataset: MutableList<Any>) : RecyclerView.Adapter<
                     .inflate(R.layout.list_id, parent, false)
                 return ListIDViewHolder(adapterLayout)
             }
+            // We can assume any other item is a ListItem
             else -> {
                 val adapterLayout = LayoutInflater.from(parent.context)
                     .inflate(R.layout.list_item, parent, false)
@@ -38,6 +39,7 @@ class ItemAdapter(private val dataset: MutableList<Any>) : RecyclerView.Adapter<
                 val myListIDViewHolder = holder as ListIDViewHolder
                 myListIDViewHolder.textView.text = dataset[position].toString()
             }
+            // We can assume any other item is a ListItem
             else -> {
                 val myItemViewHolder = holder as ItemViewHolder
                 myItemViewHolder.textView.text = dataset[position].toString()
@@ -49,8 +51,8 @@ class ItemAdapter(private val dataset: MutableList<Any>) : RecyclerView.Adapter<
         val item = dataset[position]
         return when {
             item is ListID -> 0
-            item is ListItem -> 1
-            else -> -1
+            // We can assume any other item is a ListItem
+            else -> 1
         }
     }
 }

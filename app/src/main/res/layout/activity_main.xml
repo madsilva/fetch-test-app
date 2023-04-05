@@ -24,7 +24,8 @@
                 android:id="@+id/fail_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="API call returned blank - device may not be connected to network"
+                android:text="API call failed"
+                android:textSize="20sp"
                 android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView

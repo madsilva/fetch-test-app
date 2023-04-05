@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
+// Creating a HashMap in the format {ListID: [ListItem, ListItem...], ListID2: [...],}
 fun getListIdMap(initialList : List<ListItem>) : HashMap<Int, MutableList<ListItem>> {
     val listIdMap = HashMap<Int, MutableList<ListItem>> ()
     for (item in initialList) {
@@ -52,6 +53,7 @@ fun getListIdMap(initialList : List<ListItem>) : HashMap<Int, MutableList<ListIt
     return listIdMap
 }
 
+// Flattening the HashMap into a List for the RecyclerView
 fun getRecyclerDataset(initialMap : HashMap<Int, MutableList<ListItem>>) : MutableList<Any> {
     val dataset = mutableListOf<Any>()
     for ((k,v) in initialMap) {

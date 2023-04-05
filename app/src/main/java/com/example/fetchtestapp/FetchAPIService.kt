@@ -6,6 +6,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 
+// Mostly adapted from https://developer.android.com/codelabs/basic-android-kotlin-training-getting-data-internet#0
+
 private const val BASE_URL = "https://fetch-hiring.s3.amazonaws.com/"
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
