@@ -1,5 +1,7 @@
 # fetch-test-app
 
+(commit times are not accurate)
+
 Instructions for running
 - Clone project locally and open it in Android Studio
 
